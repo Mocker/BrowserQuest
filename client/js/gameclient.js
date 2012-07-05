@@ -45,6 +45,7 @@ define(['player', 'entityfactory', 'lib/bison'], function(Player, EntityFactory,
         },
         
         connect: function(dispatcherMode) {
+            dispatcherMode = false;
             var url = "ws://"+ this.host +":"+ this.port +"/",
                 self = this;
             console.log("Connecting to websocket at "+url);
@@ -58,7 +59,8 @@ define(['player', 'entityfactory', 'lib/bison'], function(Player, EntityFactory,
             
             if(dispatcherMode) {
                 this.connection.onmessage = function(e) {
-                    console.log("ws message: "+e);
+                    console.log("ws dispatcher message: "+e);
+                    console.log(e);
                     var reply = JSON.parse(e.data);
 
                     if(reply.status === 'OK') {

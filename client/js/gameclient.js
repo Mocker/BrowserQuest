@@ -47,7 +47,7 @@ define(['player', 'entityfactory', 'lib/bison'], function(Player, EntityFactory,
         connect: function(dispatcherMode) {
             var url = "ws://"+ this.host +":"+ this.port +"/",
                 self = this;
-            
+            console.log("Connecting to websocket at "+url);
             log.info("Trying to connect to server : "+url);
 
             if(window.MozWebSocket) {
@@ -58,6 +58,7 @@ define(['player', 'entityfactory', 'lib/bison'], function(Player, EntityFactory,
             
             if(dispatcherMode) {
                 this.connection.onmessage = function(e) {
+                    console.log("ws message: "+e);
                     var reply = JSON.parse(e.data);
 
                     if(reply.status === 'OK') {
@@ -74,6 +75,7 @@ define(['player', 'entityfactory', 'lib/bison'], function(Player, EntityFactory,
                 };
 
                 this.connection.onmessage = function(e) {
+                    console.log("ws msg: "+e.data);
                     if(e.data === "go") {
                         if(self.connected_callback) {
                             self.connected_callback();
@@ -110,6 +112,7 @@ define(['player', 'entityfactory', 'lib/bison'], function(Player, EntityFactory,
         sendMessage: function(json) {
             var data;
             if(this.connection.readyState === 1) {
+                console.log('gameclient sendmg. bison:'+this.useBison+' data:'+json);
                 if(this.useBison) {
                     data = BISON.encode(json);
                 } else {

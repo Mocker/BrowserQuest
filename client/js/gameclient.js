@@ -126,6 +126,7 @@ define(['player', 'entityfactory', 'lib/bison'], function(Player, EntityFactory,
             var data, action;
         
             if(this.isListening) {
+                console.log('gameclient recmg. bison:'+this.useBison+' data:'+message);
                 if(this.useBison) {
                     data = BISON.decode(message);
                 } else {
